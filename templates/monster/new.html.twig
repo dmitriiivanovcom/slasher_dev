@@ -3,9 +3,11 @@
 {% block title %}New Monster{% endblock %}
 
 {% block body %}
-    <h1>Create new Monster</h1>
+    <div class="form-container">
+        <h1 class="all-characters-title" style="margin-top: 20px;">Create New Monster</h1>
 
-    {{ include('monster/_form.html.twig') }}
+        {{ include('monster/_form.html.twig') }}
 
-    <a href="{{ path('app_monster_index') }}">back to list</a>
+        <a class="menu-btn" style="position: static; font-size: 1.5rem; margin-top: 2rem;" href="{{ path('app_monster_index') }}">Back to list</a>
+    </div>
 {% endblock %}

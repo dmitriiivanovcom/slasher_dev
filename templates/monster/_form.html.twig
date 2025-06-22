@@ -1,4 +1,17 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="form-row">{{ form_row(form.name) }}</div>
+    <div class="form-row">{{ form_row(form.title) }}</div>
+    <div class="form-row">{{ form_row(form.rank) }}</div>
+    <div class="form-row">{{ form_row(form.dangerIndex) }}</div>
+    <div class="form-row">{{ form_row(form.lethality) }}</div>
+    <div class="form-row">{{ form_row(form.speed) }}</div>
+    <div class="form-row">{{ form_row(form.stealth) }}</div>
+    <div class="form-row">{{ form_row(form.description) }}</div>
+    <div class="form-row">{{ form_row(form.strengths) }}</div>
+    <div class="form-row">{{ form_row(form.weaknesses) }}</div>
+    <div class="form-row">{{ form_row(form.backstory) }}</div>
+    <div class="form-row">{{ form_row(form.portrait) }}</div>
+    <div class="form-row">{{ form_row(form.backgroundImage) }}</div>
+
+    <button>{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Character{% endblock %}
+{% block title %}{{ character.id ? 'Edit Character' : 'New Character' }}{% endblock %}
 
 {% block body %}
-    <h1>Create new Character</h1>
+    <div class="form-container">
+        <h1 class="all-characters-title" style="margin-top: 20px;">
+            {{ character.id ? 'Edit Character' : 'Create New Character' }}
+        </h1>
 
-    {{ include('character/_form.html.twig') }}
+        {{ include('character/_form.html.twig', {'button_label': character.id ? 'Update' : 'Create'}) }}
 
-    <a href="{{ path('app_character_index') }}">back to list</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <a href="{{ path('app_character_index') }}" class="menu-link">Back to list</a>
+            
+            {% if character.id %}
+                {{ include('character/_delete_form.html.twig') }}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

@@ -1,74 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Character{% endblock %}
+{% block title %}{{ character.name }}{% endblock %}
 
 {% block body %}
-    <h1>Character</h1>
+    <div class="card" style="background: url('{{ character.backgroundImage ? asset('uploads/characters/' ~ character.backgroundImage) : '' }}') no-repeat center center; background-size: cover;">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ character.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ character.name }}</td>
-            </tr>
-            <tr>
-                <th>Strength</th>
-                <td>{{ character.strength }}</td>
-            </tr>
-            <tr>
-                <th>Agility</th>
-                <td>{{ character.agility }}</td>
-            </tr>
-            <tr>
-                <th>Intelligence</th>
-                <td>{{ character.intelligence }}</td>
-            </tr>
-            <tr>
-                <th>Charisma</th>
-                <td>{{ character.charisma }}</td>
-            </tr>
-            <tr>
-                <th>Quote</th>
-                <td>{{ character.quote }}</td>
-            </tr>
-            <tr>
-                <th>Role</th>
-                <td>{{ character.role }}</td>
-            </tr>
-            <tr>
-                <th>Portrait</th>
-                <td>{{ character.portrait }}</td>
-            </tr>
-            <tr>
-                <th>BackgroundImage</th>
-                <td>{{ character.backgroundImage }}</td>
-            </tr>
-            <tr>
-                <th>Motto</th>
-                <td>{{ character.motto }}</td>
-            </tr>
-            <tr>
-                <th>Weaknesses</th>
-                <td>{{ character.weaknesses }}</td>
-            </tr>
-            <tr>
-                <th>Strengths</th>
-                <td>{{ character.strengths }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ character.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="corner-block top-left">
+            <div class="name slasher-heading">{{ character.name }}</div>
+            <div>{{ character.role }}</div>
+        </div>
 
-    <a href="{{ path('app_character_index') }}">back to list</a>
+        <div class="corner-block top-right">
+            <div class="stat-label">Сила</div>
+            <div class="stars">
+                {% for i in 1..5 %}<div class="star {{ i <= character.strength ? 'filled' : '' }}"></div>{% endfor %}
+            </div>
+            <div class="stat-label">Ловкость</div>
+            <div class="stars">
+                {% for i in 1..5 %}<div class="star {{ i <= character.agility ? 'filled' : '' }}"></div>{% endfor %}
+            </div>
+            <div class="stat-label">Интеллект</div>
+            <div class="stars">
+                {% for i in 1..5 %}<div class="star {{ i <= character.intelligence ? 'filled' : '' }}"></div>{% endfor %}
+            </div>
+            <div class="stat-label">Харизма</div>
+            <div class="stars">
+                {% for i in 1..5 %}<div class="star {{ i <= character.charisma ? 'filled' : '' }}"></div>{% endfor %}
+            </div>
+        </div>
 
-    <a href="{{ path('app_character_edit', {'id': character.id}) }}">edit</a>
+        <div class="corner-block bottom-left">
+            {% if character.description %}<p><strong>Описание:</strong> {{ character.description }}</p>{% endif %}
+            {% if character.strengths %}<p><strong>Сильная сторона:</strong> {{ character.strengths }}</p>{% endif %}
+            {% if character.weaknesses %}<p><strong>Слабая сторона:</strong> {{ character.weaknesses }}</p>{% endif %}
+        </div>
 
-    {{ include('character/_delete_form.html.twig') }}
+        <div class="corner-block bottom-right">
+            {% if character.motto %}<div class="motto">"{{ character.motto }}"</div>{% endif %}
+            {% if character.quote %}<div class="motto" style="margin-top: 1rem;">"{{ character.quote }}"</div>{% endif %}
+        </div>
+
+    </div>
+    
+    <div class="d-flex justify-content-center align-items-center" style="gap: 20px; margin-top: -20px;">
+        <a class="menu-link" href="{{ path('app_character_index') }}">Back to List</a>
+        <a class="menu-link" href="{{ path('app_character_edit', {'id': character.id}) }}">Edit</a>
+        {{ include('character/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

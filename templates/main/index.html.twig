@@ -4,12 +4,12 @@
 
 {% block body %}
   <div class="index-container">
-    <h1 class="all-characters-title">Main Menu</h1>
-    <ul class="index-list main-menu-list">
-      <li><a class="index-link" href="{{ path('app_character_index') }}">Characters</a></li>
-      <li><a class="index-link" href="#">Weapons (soon)</a></li>
-      <li><a class="index-link" href="{{ path('app_monster_index') }}">Monsters</a></li>
-      <li><a class="index-link" href="#">Locations (soon)</a></li>
+    <h1 class="all-characters-title">All characters</h1>
+
+    <ul class="main-menu-list">
+      <li><a href="{{ path('app_character_new') }}" class="menu-link" style="font-size: 2.2rem;">Create New Character</a></li>
+      <li><a href="{{ path('app_character_index') }}" class="menu-link" style="font-size: 2.2rem;">View All Characters</a></li>
+      <li><a href="{{ path('app_monster_index') }}" class="menu-link" style="font-size: 2.2rem;">Monsters</a></li>
     </ul>
   </div>
   {# <button class="menu-btn" disabled>Main Menu</button> #}

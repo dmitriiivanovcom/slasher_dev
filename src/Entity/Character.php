@@ -28,10 +28,10 @@ class Character
     #[ORM\Column(type: 'integer')]
     private ?int $charisma = null;
 
-    #[ORM\Column(type: 'string', length: 300)]
+    #[ORM\Column(type: 'string', length: 300, nullable: true)]
     private ?string $quote = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $role = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

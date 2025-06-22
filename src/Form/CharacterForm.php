@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class CharacterForm extends AbstractType
 {
@@ -24,11 +25,33 @@ class CharacterForm extends AbstractType
                 'label' => 'Портрет (JPG, PNG)',
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => 'The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid JPG or PNG image.',
+                    ])
+                ],
             ])
             ->add('backgroundImage', FileType::class, [
                 'label' => 'Фоновое изображение (JPG, PNG)',
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => 'The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid JPG or PNG image.',
+                    ])
+                ],
             ])
             ->add('motto')
             ->add('weaknesses')

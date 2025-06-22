@@ -106,43 +106,6 @@ body {
     row-gap: 18px;
     z-index: 100;
   }
-  .header-nav a {
-    color: #b30000;
-    text-decoration: none;
-    font-size: 20px;
-    font-family: 'Nosifer', cursive;
-    font-weight: normal;
-    padding: 4px 12px;
-    border-radius: 6px;
-    position: relative;
-    transition: color 0.2s;
-    letter-spacing: 2px;
-    white-space: nowrap;
-  }
-  .header-nav a:hover, .header-nav a.active {
-    color: #bb9334;
-  }
-  .header-nav a::after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 80px;
-    height: 80px;
-    background: url('/img/fool_moon-Photoroom.png') no-repeat center center / contain;
-    opacity: 0;
-    pointer-events: none;
-    transform: translate(-50%, -60%) scale(1);
-    transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
-    z-index: 1;
-    filter: brightness(0.3) sepia(1) hue-rotate(-20deg) saturate(6) drop-shadow(0 0 32px #ff0033) drop-shadow(0 0 24px #b30000);
-    mix-blend-mode: screen;
-  }
-  .header-nav a:hover::after {
-    opacity: 1;
-    transform: translate(-50%, -60%) scale(1);
-  }
 
 body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-heading):not(.name):not(.header-nav a) {
   font-family: 'SwampyDirt', Arial, sans-serif;
@@ -189,41 +152,6 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
   margin: 0.2em 0;
   padding: 20px;
 }
-.index-link {
-  color: #b30000;
-  font-family: 'Nosifer', cursive;
-  font-size: 2.2rem;
-  text-decoration: none;
-  text-shadow: 2px 2px 6px #000, 0 0 8px #800000;
-  transition: color 0.2s, text-decoration-color 0.2s;
-  border-bottom: 2px solid transparent;
-  position: relative;
-}
-.index-link:hover, .index-link.active {
-  color: #bb9334;
-  border-bottom: 2px solid transparent;
-}
-.index-link::after {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 80px;
-  height: 80px;
-  background: url('/img/fool_moon-Photoroom.png') no-repeat center center / contain;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -60%) scale(1);
-  transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
-  z-index: 1;
-  filter: brightness(0.3) sepia(1) hue-rotate(-20deg) saturate(6) drop-shadow(0 0 32px #ff0033) drop-shadow(0 0 24px #b30000);
-  mix-blend-mode: screen;
-}
-.index-link:hover::after {
-  opacity: 1;
-  transform: translate(-50%, -60%) scale(1);
-}
 
 .index-list::-webkit-scrollbar, .main-menu-list::-webkit-scrollbar {
   width: 10px;
@@ -242,44 +170,51 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
   border-radius: 8px;
 }
 
-/* Кнопка Главное меню */
-.menu-btn {
-  font-family: 'Nosifer', cursive;
-  text-decoration: none;
-  position: fixed;
-  left: 32px;
-  bottom: 32px;
-  background: none;
-  border: none;
-  color: #bb9334;
-  font-size: 24px;
-  padding: 8px 16px;
-  z-index: 1000;
-  transition: color 0.2s;
-  text-shadow: 2px 2px 6px #000, 0 0 8px #800000;
+/* ==================
+   UNIVERSAL MENU LINK
+   ================== */
+
+.menu-link {
+    color: #b30000;
+    font-family: 'Nosifer', cursive;
+    font-size: 1.6rem; /* Adjusted for better versatility */
+    text-decoration: none;
+    text-shadow: 2px 2px 6px #000, 0 0 8px #800000;
+    transition: color 0.2s, text-shadow 0.2s;
+    position: relative;
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    display: inline-block;
 }
-.menu-btn:hover {
-  color: #ffcc66;
+
+.menu-link:hover, .menu-link.active {
+    color: #bb9334;
+    text-shadow: 2px 2px 6px #000, 0 0 12px #bb9334;
 }
-.menu-btn::after {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 80px;
-  height: 80px;
-  background: url('/img/fool_moon-Photoroom.png') no-repeat center center / contain;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -60%) scale(1);
-  transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
-  z-index: -1;
-  filter: brightness(0.3) sepia(1) hue-rotate(-20deg) saturate(6) drop-shadow(0 0 32px #ff0033) drop-shadow(0 0 24px #b30000);
-  mix-blend-mode: screen;
+
+.menu-link::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    background: url('/img/fool_moon-Photoroom.png') no-repeat center center / contain;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -60%) scale(1);
+    transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
+    z-index: -1;
+    filter: brightness(0.3) sepia(1) hue-rotate(-20deg) saturate(6) drop-shadow(0 0 32px #ff0033) drop-shadow(0 0 24px #b30000);
+    mix-blend-mode: screen;
 }
-.menu-btn:hover::after {
-  opacity: 1;
+
+.menu-link:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -60%) scale(1);
 }
 
 /* Заголовок "Все персонажи" */
@@ -291,6 +226,103 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
     text-align: center;
     margin-top: 100px;
     margin-bottom: 20px;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-family: 'Nosifer', cursive;
+}
+
+/* Стили для форм */
+.form-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.form-container .form-row {
+    margin-bottom: 1.5rem;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'Nosifer', cursive;
+    color: #b30000;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #1a1a1a;
+    border: 1px solid #b30000;
+    color: #b0a6a6;
+    font-family: 'SwampyDirt', Arial, sans-serif;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.form-container input[type="file"] {
+    color: #b0a6a6;
+    font-family: 'SwampyDirt', Arial, sans-serif;
+}
+
+.form-container button {
+    font-family: 'Nosifer', cursive;
+    color: #bb9334;
+    background: none;
+    border: 1px solid #bb9334;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.form-container button:hover {
+    background-color: #bb9334;
+    color: #000;
+    box-shadow: 0 0 10px #bb9334;
+}
+
+/* New styles for star rating input */
+.stats-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.stars-input-wrapper .slasher-heading {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.stars-input {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.star-input {
+    width: 28px;
+    height: 28px;
+    background: url('data:image/svg+xml;utf8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 1C9 1 3 8.5 3 12C3 15.3137 6.13401 17 9 17C11.866 17 15 15.3137 15 12C15 8.5 9 1 9 1Z" fill="%23b30000" stroke="%23800000" stroke-width="1.5"/></svg>') no-repeat center center / contain;
+    opacity: 0.25;
+    filter: grayscale(0.8);
+    transition: all 0.2s ease-in-out;
+}
+
+.star-input.hover {
+    opacity: 0.6;
+    filter: grayscale(0.4);
+    transform: scale(1.1);
+}
+
+.star-input.filled, .star-input.filled.hover {
+    opacity: 1;
+    filter: none;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 5px #ff4d4d);
 } 

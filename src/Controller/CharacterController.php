@@ -32,38 +32,7 @@ final class CharacterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Обработка портрета
-            $portraitFile = $form->get('portrait')->getData();
-            if ($portraitFile) {
-                $originalFilename = pathinfo($portraitFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$portraitFile->guessExtension();
-                try {
-                    $portraitFile->move(
-                        $this->getParameter('characters_images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // обработайте ошибку при загрузке файла
-                }
-                $character->setPortrait($newFilename);
-            }
-            // Обработка фонового изображения
-            $backgroundFile = $form->get('backgroundImage')->getData();
-            if ($backgroundFile) {
-                $originalFilename = pathinfo($backgroundFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$backgroundFile->guessExtension();
-                try {
-                    $backgroundFile->move(
-                        $this->getParameter('characters_images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // обработайте ошибку при загрузке файла
-                }
-                $character->setBackgroundImage($newFilename);
-            }
+            $this->handleFileUploads($form, $character, $slugger);
             $entityManager->persist($character);
             $entityManager->flush();
             return $this->redirectToRoute('app_character_index', [], Response::HTTP_SEE_OTHER);
@@ -89,42 +58,11 @@ final class CharacterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Обработка портрета
-            $portraitFile = $form->get('portrait')->getData();
-            if ($portraitFile) {
-                $originalFilename = pathinfo($portraitFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$portraitFile->guessExtension();
-                try {
-                    $portraitFile->move(
-                        $this->getParameter('characters_images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // обработайте ошибку при загрузке файла
-                }
-                $character->setPortrait($newFilename);
-            }
-            // Обработка фонового изображения
-            $backgroundFile = $form->get('backgroundImage')->getData();
-            if ($backgroundFile) {
-                $originalFilename = pathinfo($backgroundFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$backgroundFile->guessExtension();
-                try {
-                    $backgroundFile->move(
-                        $this->getParameter('characters_images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // обработайте ошибку при загрузке файла
-                }
-                $character->setBackgroundImage($newFilename);
-            }
+            $this->handleFileUploads($form, $character, $slugger);
             $entityManager->flush();
             return $this->redirectToRoute('app_character_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('character/edit.html.twig', [
+        return $this->render('character/new.html.twig', [
             'character' => $character,
             'form' => $form,
         ]);
@@ -139,5 +77,40 @@ final class CharacterController extends AbstractController
         }
 
         return $this->redirectToRoute('app_character_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function handleFileUploads($form, Character $character, SluggerInterface $slugger): void
+    {
+        $portraitFile = $form->get('portrait')->getData();
+        if ($portraitFile) {
+            $originalFilename = pathinfo($portraitFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$portraitFile->guessExtension();
+            try {
+                $portraitFile->move(
+                    $this->getParameter('characters_images_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                // handle exception if something happens during file upload
+            }
+            $character->setPortrait($newFilename);
+        }
+
+        $backgroundFile = $form->get('backgroundImage')->getData();
+        if ($backgroundFile) {
+            $originalFilename = pathinfo($backgroundFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$backgroundFile->guessExtension();
+            try {
+                $backgroundFile->move(
+                    $this->getParameter('characters_images_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                // handle exception if something happens during file upload
+            }
+            $character->setBackgroundImage($newFilename);
+        }
     }
 }

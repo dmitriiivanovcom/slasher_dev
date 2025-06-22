@@ -3,6 +3,7 @@
 {% block title %}{{ monster.name }}{% endblock %}
 
 {% block body %}
+<div class="show-page-wrapper">
     <div class="card" style="background-image: url('{{ monster.backgroundImage ? asset('uploads/monsters/' ~ monster.backgroundImage) : asset('img/default_bg.jpg') }}');">
         <div class="corner-block top-left">
             <div class="name slasher-heading">{{ monster.name }}</div>
@@ -44,8 +45,9 @@
     </div>
     
     <div class="action-buttons-container">
-        <a class="menu-link" href="{{ path('app_monster_index') }}">Back to List</a>
+        <a class="menu-link" href="{{ path('app_monster_index') }}">Back to list</a>
         <a class="menu-link" href="{{ path('app_monster_edit', {'id': monster.id}) }}">Edit</a>
         {{ include('monster/_delete_form.html.twig') }}
     </div>
+</div>
 {% endblock %}

@@ -31,3 +31,7 @@ services:
     App\Command\ImportMonstersCommand:
         arguments:
             $projectDir: '%kernel.project_dir%'
+
+    App\Command\ImportWeaponsCommand:
+        arguments:
+            $projectDir: '%kernel.project_dir%'

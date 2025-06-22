@@ -515,17 +515,48 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
 
 /* Action buttons on show pages */
 .action-buttons-container {
+    text-align: center;
+    margin-top: 20px;
     display: flex;
+    gap: 20px;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    margin-top: 2rem;
+}
+
+.show-page-wrapper {
+  position: relative;
+  width: calc(57vw);
+  height: calc(100vh - 40px);
+  margin: 20px;
+  display: flex
+;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.show-page-wrapper .card {
     width: 100%;
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.show-page-wrapper .action-buttons-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    margin-top: 0;
+    padding: 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
 }
 
 .stat-line {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
     margin-bottom: 5px;

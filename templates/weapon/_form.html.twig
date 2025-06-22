@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.type) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.ammoStatus) }}
+    {{ form_row(form.damage) }}
+    {{ form_row(form.range) }}
+    <button class="btn btn-save">{{ button_label|default('Сохранить') }}</button>
+{{ form_end(form) }}

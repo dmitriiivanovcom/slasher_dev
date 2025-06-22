@@ -1,0 +1,13 @@
+/* assets/styles/main.css */
+
+.welcome-jumbotron {
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.welcome-jumbotron h1 {
+    color: #343a40;
+    font-weight: 700;
+} 

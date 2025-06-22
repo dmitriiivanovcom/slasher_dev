@@ -1,0 +1,296 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
+
+@font-face {
+  font-family: 'SwampyDirt';
+  src: url('/fonts/Swampy Dirt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+    margin: 0;
+    background-color: black;
+    height: 100vh;
+  }
+  
+  .card {
+    position: relative;
+    background-size: contain;
+    width: 1100px;
+    height: 750px;
+    max-width: 98vw;
+    max-height: 80vh;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    margin: 120px auto 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px #000a, 0 0 0 4px #b3000033;
+  }
+  
+  .corner-block {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 16px;
+    border-radius: 10px;
+    max-width: 300px;
+    font-size: 20px;
+  }
+  
+  .top-left {
+    top: 10px;
+    left: 10px;
+  }
+  
+  .top-right {
+    top: 10px;
+    right: 66px;
+    text-align: right;
+  }
+  
+  .bottom-left {
+    bottom: 10px;
+    left: 10px;
+  }
+  
+  .bottom-right {
+    bottom: 10px;
+    right: 10px;
+    text-align: right;
+  }
+  
+  .stars {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+  }
+  
+  .star {
+    width: 18px;
+    height: 18px;
+    background: url('data:image/svg+xml;utf8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 1C9 1 3 8.5 3 12C3 15.3137 6.13401 17 9 17C11.866 17 15 15.3137 15 12C15 8.5 9 1 9 1Z" fill="%23b30000" stroke="%23800000" stroke-width="1.5"/></svg>') no-repeat center center / contain;
+    opacity: 0.3;
+    filter: grayscale(0.7);
+    transition: opacity 0.2s, filter 0.2s;
+  }
+  
+  .star.filled {
+    opacity: 1;
+    filter: none;
+  }
+  
+  .name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  
+  .motto {
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .header-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.85);
+    padding: 24px 0 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px 36px;
+    row-gap: 18px;
+    z-index: 100;
+  }
+  .header-nav a {
+    color: #b30000;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Nosifer', cursive;
+    font-weight: normal;
+    padding: 4px 12px;
+    border-radius: 6px;
+    position: relative;
+    transition: color 0.2s;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+  .header-nav a:hover, .header-nav a.active {
+    color: #bb9334;
+  }
+  .header-nav a::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    background: url('/img/fool_moon-Photoroom.png') no-repeat center center / contain;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -60%) scale(1);
+    transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
+    z-index: 1;
+    filter: brightness(0.3) sepia(1) hue-rotate(-20deg) saturate(6) drop-shadow(0 0 32px #ff0033) drop-shadow(0 0 24px #b30000);
+    mix-blend-mode: screen;
+  }
+  .header-nav a:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -60%) scale(1);
+  }
+
+body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-heading):not(.name):not(.header-nav a) {
+  font-family: 'SwampyDirt', Arial, sans-serif;
+  color: #b0a6a6;
+  text-shadow: 1px 1px 2px #222, 0 0 2px #a22b2b44;
+}
+
+.card strong,
+.card .stat-label {
+  color: #b30000;
+  text-shadow: 1px 1px 2px #800000, 0 0 2px #b30000;
+}
+
+.slasher-heading, .header-nav a, .name {
+  font-family: 'Nosifer', cursive;
+  color: #b30000;
+  text-shadow: 2px 2px 6px #000, 0 0 8px #800000;
+  letter-spacing: 2px;
+  font-weight: normal;
+}
+
+/* Индексные списки */
+.index-list, .main-menu-list {
+  align-items: center;
+  scrollbar-width: thin;
+  scrollbar-color: #b30000 #2a0000;
+}
+
+.index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 2.2rem;
+  gap: 0.5em;
+  max-width: 600px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 12px;
+  margin-top: 0;
+}
+.index-list li {
+  margin: 0.2em 0;
+  padding: 20px;
+}
+.index-link {
+  color: #b30000;
+  font-family: 'Nosifer', cursive;
+  font-size: 2.2rem;
+  text-decoration: none;
+  text-shadow: 2px 2px 6px #000, 0 0 8px #800000;
+  transition: color 0.2s, text-decoration-color 0.2s;
+  border-bottom: 2px solid transparent;
+  position: relative;
+}
+.index-link:hover, .index-link.active {
+  color: #bb9334;
+  border-bottom: 2px solid transparent;
+}
+.index-link::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80px;
+  height: 80px;
+  background: url('/img/fool_moon-Photoroom.png') no-repeat center center / contain;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -60%) scale(1);
+  transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
+  z-index: 1;
+  filter: brightness(0.3) sepia(1) hue-rotate(-20deg) saturate(6) drop-shadow(0 0 32px #ff0033) drop-shadow(0 0 24px #b30000);
+  mix-blend-mode: screen;
+}
+.index-link:hover::after {
+  opacity: 1;
+  transform: translate(-50%, -60%) scale(1);
+}
+
+.index-list::-webkit-scrollbar, .main-menu-list::-webkit-scrollbar {
+  width: 10px;
+  background: #2a0000;
+}
+.index-list::-webkit-scrollbar-thumb, .main-menu-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff6600 0%, #b30000 100%);
+  border-radius: 8px;
+  border: 2px solid #800000;
+}
+.index-list::-webkit-scrollbar-thumb:hover, .main-menu-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff9933 0%, #ff3300 100%);
+}
+.index-list::-webkit-scrollbar-track, .main-menu-list::-webkit-scrollbar-track {
+  background: #2a0000;
+  border-radius: 8px;
+}
+
+/* Кнопка Главное меню */
+.menu-btn {
+  font-family: 'Nosifer', cursive;
+  text-decoration: none;
+  position: fixed;
+  left: 32px;
+  bottom: 32px;
+  background: none;
+  border: none;
+  color: #bb9334;
+  font-size: 24px;
+  padding: 8px 16px;
+  z-index: 1000;
+  transition: color 0.2s;
+  text-shadow: 2px 2px 6px #000, 0 0 8px #800000;
+}
+.menu-btn:hover {
+  color: #ffcc66;
+}
+.menu-btn::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80px;
+  height: 80px;
+  background: url('/img/fool_moon-Photoroom.png') no-repeat center center / contain;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -60%) scale(1);
+  transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
+  z-index: -1;
+  filter: brightness(0.3) sepia(1) hue-rotate(-20deg) saturate(6) drop-shadow(0 0 32px #ff0033) drop-shadow(0 0 24px #b30000);
+  mix-blend-mode: screen;
+}
+.menu-btn:hover::after {
+  opacity: 1;
+}
+
+/* Заголовок "Все персонажи" */
+.all-characters-title {
+    color: #b30000;
+    text-shadow: 2px 2px 6px #000, 0 0 8px #800000;
+    letter-spacing: 2px;
+    font-weight: normal;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    font-size: 3rem;
+    font-family: 'Nosifer', cursive;
+} 

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Monster index{% endblock %}
+
+{% block body %}
+    <h1>Monster index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Portrait</th>
+                <th>BackgroundImage</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Strengths</th>
+                <th>Weaknesses</th>
+                <th>Lethality</th>
+                <th>Speed</th>
+                <th>Stealth</th>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>DangerIndex</th>
+                <th>Backstory</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for monster in monsters %}
+            <tr>
+                <td>{{ monster.id }}</td>
+                <td>{{ monster.portrait }}</td>
+                <td>{{ monster.backgroundImage }}</td>
+                <td>{{ monster.title }}</td>
+                <td>{{ monster.description }}</td>
+                <td>{{ monster.strengths }}</td>
+                <td>{{ monster.weaknesses }}</td>
+                <td>{{ monster.lethality }}</td>
+                <td>{{ monster.speed }}</td>
+                <td>{{ monster.stealth }}</td>
+                <td>{{ monster.name }}</td>
+                <td>{{ monster.rank }}</td>
+                <td>{{ monster.dangerIndex }}</td>
+                <td>{{ monster.backstory }}</td>
+                <td>
+                    <a href="{{ path('app_monster_show', {'id': monster.id}) }}">show</a>
+                    <a href="{{ path('app_monster_edit', {'id': monster.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_monster_new') }}">Create new</a>
+{% endblock %}

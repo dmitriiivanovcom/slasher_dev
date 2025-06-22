@@ -99,13 +99,17 @@ class ImportCharactersCommand extends Command
             $cardNode = $xpath->query("//div[contains(@class, 'card')]")->item(0);
             if ($cardNode) {
                 $style = $cardNode->getAttribute('style');
-                preg_match('/url\(([\'"]?)(..\/guys_img\/.*?)\1\)/', $style, $matches);
-                if (isset($matches[2])) {
+                if (preg_match('/url\(([\'"]?)(..\/guys_img\/.*?)\1\)/', $style, $matches)) {
                     $imagePath = $matches[2];
-                    $sourceImagePath = $this->projectDir . '/blog/html_template/' . str_replace('../', '', $imagePath);
+                    $sourceImagePath = $this->projectDir . '/html_template/' . str_replace('../', '', $imagePath);
+                    $destinationDir = $this->projectDir . '/public/uploads/characters/';
+
                     if (file_exists($sourceImagePath)) {
+                        if (!is_dir($destinationDir)) {
+                            mkdir($destinationDir, 0777, true);
+                        }
                         $newFilename = uniqid() . '-' . basename($sourceImagePath);
-                        $destinationPath = $this->projectDir . '/blog/public/uploads/characters/' . $newFilename;
+                        $destinationPath = $destinationDir . $newFilename;
                         copy($sourceImagePath, $destinationPath);
                         $character->setPortrait($newFilename);
                         $character->setBackgroundImage($newFilename);

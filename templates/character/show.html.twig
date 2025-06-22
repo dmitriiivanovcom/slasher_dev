@@ -3,7 +3,7 @@
 {% block title %}{{ character.name }}{% endblock %}
 
 {% block body %}
-    <div class="card" style="background: url('{{ character.backgroundImage ? asset('uploads/characters/' ~ character.backgroundImage) : '' }}') no-repeat center center; background-size: cover;">
+    <div class="card" style="background-image: url('{{ character.portrait ? asset('uploads/characters/' ~ character.portrait) : (character.backgroundImage ? asset('uploads/characters/' ~ character.backgroundImage) : asset('img/default_bg.jpg')) }}');">
 
         <div class="corner-block top-left">
             <div class="name slasher-heading">{{ character.name }}</div>
@@ -11,21 +11,29 @@
         </div>
 
         <div class="corner-block top-right">
-            <div class="stat-label">Сила</div>
-            <div class="stars">
-                {% for i in 1..5 %}<div class="star {{ i <= character.strength ? 'filled' : '' }}"></div>{% endfor %}
+             <div class="stat-line">
+                <div class="stat-label">Сила</div>
+                <div class="stars">
+                    {% for i in 1..5 %}<div class="star {{ i <= character.strength ? 'filled' : '' }}"></div>{% endfor %}
+                </div>
             </div>
-            <div class="stat-label">Ловкость</div>
-            <div class="stars">
-                {% for i in 1..5 %}<div class="star {{ i <= character.agility ? 'filled' : '' }}"></div>{% endfor %}
+            <div class="stat-line">
+                <div class="stat-label">Ловкость</div>
+                <div class="stars">
+                    {% for i in 1..5 %}<div class="star {{ i <= character.agility ? 'filled' : '' }}"></div>{% endfor %}
+                </div>
             </div>
-            <div class="stat-label">Интеллект</div>
-            <div class="stars">
-                {% for i in 1..5 %}<div class="star {{ i <= character.intelligence ? 'filled' : '' }}"></div>{% endfor %}
+            <div class="stat-line">
+                <div class="stat-label">Интеллект</div>
+                <div class="stars">
+                    {% for i in 1..5 %}<div class="star {{ i <= character.intelligence ? 'filled' : '' }}"></div>{% endfor %}
+                </div>
             </div>
-            <div class="stat-label">Харизма</div>
-            <div class="stars">
-                {% for i in 1..5 %}<div class="star {{ i <= character.charisma ? 'filled' : '' }}"></div>{% endfor %}
+            <div class="stat-line">
+                <div class="stat-label">Харизма</div>
+                <div class="stars">
+                    {% for i in 1..5 %}<div class="star {{ i <= character.charisma ? 'filled' : '' }}"></div>{% endfor %}
+                </div>
             </div>
         </div>
 

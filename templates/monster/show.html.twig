@@ -10,17 +10,23 @@
         </div>
 
         <div class="corner-block top-right">
-            <div class="stat-label">Lethality</div>
-            <div class="stars">
-                {% for i in 1..5 %}<div class="star {{ i <= monster.lethality ? 'filled' : '' }}"></div>{% endfor %}
+            <div class="stat-line">
+                <div class="stat-label">Lethality</div>
+                <div class="stars">
+                    {% for i in 1..5 %}<div class="star {{ i <= monster.lethality ? 'filled' : '' }}"></div>{% endfor %}
+                </div>
             </div>
-            <div class="stat-label">Speed</div>
-            <div class="stars">
-                {% for i in 1..5 %}<div class="star {{ i <= monster.speed ? 'filled' : '' }}"></div>{% endfor %}
+            <div class="stat-line">
+                <div class="stat-label">Speed</div>
+                <div class="stars">
+                    {% for i in 1..5 %}<div class="star {{ i <= monster.speed ? 'filled' : '' }}"></div>{% endfor %}
+                </div>
             </div>
-            <div class="stat-label">Stealth</div>
-            <div class="stars">
-                {% for i in 1..5 %}<div class="star {{ i <= monster.stealth ? 'filled' : '' }}"></div>{% endfor %}
+            <div class="stat-line">
+                <div class="stat-label">Stealth</div>
+                <div class="stars">
+                    {% for i in 1..5 %}<div class="star {{ i <= monster.stealth ? 'filled' : '' }}"></div>{% endfor %}
+                </div>
             </div>
         </div>
 

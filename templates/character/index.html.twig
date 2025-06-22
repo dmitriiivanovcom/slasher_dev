@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Персонажи{% endblock %}
+{% block title %}All Characters{% endblock %}
 
 {% block body %}
     <div class="index-container">
         <h1 class="all-characters-title">All Characters</h1>
-
-        <div style="margin-bottom: 2rem;">
-            <a class="index-link" href="{{ path('app_character_new') }}">[ Create New Character ]</a>
-        </div>
 
         <ul class="index-list">
             {% for character in characters %}
@@ -16,16 +12,8 @@
                     <a href="{{ path('app_character_show', {'id': character.id}) }}" class="menu-link" style="font-size: 2.2rem;">{{ character.name }}</a>
                 </li>
             {% else %}
-                <li>
-                    <span class="index-link" style="color: #6c757d;">No characters found. Create one!</span>
-                </li>
+                <li>No characters found.</li>
             {% endfor %}
         </ul>
-
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="{{ path('app_character_new') }}" class="menu-link">Create new</a>
-        </div>
     </div>
-
-    <a class="menu-btn" href="{{ path('app_main') }}">Main Menu</a>
 {% endblock %}

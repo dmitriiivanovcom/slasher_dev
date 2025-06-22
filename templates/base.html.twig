@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Бестиарий{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('styles/custom.css') }}">
@@ -10,9 +11,55 @@
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+                    const sideNavWrapper = document.querySelector('#side-nav-wrapper');
+
+                    if (mobileNavToggle && sideNavWrapper) {
+                        mobileNavToggle.addEventListener('click', () => {
+                            const isVisible = sideNavWrapper.getAttribute('data-visible') === 'true';
+                            sideNavWrapper.setAttribute('data-visible', !isVisible);
+                            mobileNavToggle.setAttribute('aria-expanded', !isVisible);
+                        });
+                    }
+                });
+            </script>
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% if app.request.get('_route') != 'app_main' %}
+            <button class="mobile-nav-toggle" aria-controls="side-nav-wrapper" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+                <div class="hamburger-icon"></div>
+            </button>
+
+            <div class="side-nav-wrapper" id="side-nav-wrapper">
+                <div class="side-nav-handle">MENU</div>
+                <nav class="side-nav">
+                     <div class="nav-group">
+                        <a class="menu-link main-nav-link" href="{{ path('app_main') }}">Main</a>
+                    </div>
+                     <div class="nav-group">
+                        <a class="menu-link main-nav-link" href="{{ path('app_character_index') }}">Characters</a>
+                        <a class="menu-link sub-nav-link" href="{{ path('app_character_new') }}">+ Create New</a>
+                    </div>
+                    <div class="nav-group">
+                        <a class="menu-link main-nav-link" href="{{ path('app_monster_index') }}">Monsters</a>
+                        <a class="menu-link sub-nav-link" href="{{ path('app_monster_new') }}">+ Create New</a>
+                    </div>
+                    <div class="nav-group">
+                        <a class="menu-link main-nav-link" href="#" style="color: #6c757d; cursor: not-allowed;">Weapons</a>
+                    </div>
+                    <div class="nav-group">
+                        <a class="menu-link main-nav-link" href="#" style="color: #6c757d; cursor: not-allowed;">Locations</a>
+                    </div>
+                </nav>
+            </div>
+        {% endif %}
+
+        <main class="main-content">
+            {% block body %}{% endblock %}
+        </main>
     </body>
 </html>

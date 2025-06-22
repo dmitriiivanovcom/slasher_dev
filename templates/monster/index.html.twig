@@ -1,29 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Монстры{% endblock %}
+{% block title %}All Monsters{% endblock %}
 
 {% block body %}
     <div class="index-container">
         <h1 class="all-characters-title">All Monsters</h1>
 
-        <div style="margin-bottom: 2rem;">
-            <a class="index-link" href="{{ path('app_monster_new') }}">[ Create New Monster ]</a>
-        </div>
-
         <ul class="index-list">
             {% for monster in monsters %}
                 <li>
-                    <a class="index-link" href="{{ path('app_monster_show', {'id': monster.id}) }}">
-                        {{ monster.name }} - <span style="font-size: 1.5rem; color: #8d8585;">{{ monster.title }}</span>
-                    </a>
+                    <a href="{{ path('app_monster_show', {'id': monster.id}) }}" class="menu-link" style="font-size: 2.2rem;">{{ monster.name }}</a>
                 </li>
             {% else %}
-                <li>
-                    <span class="index-link" style="color: #6c757d;">No monsters found. Create one!</span>
-                </li>
+                <li>No monsters found.</li>
             {% endfor %}
         </ul>
     </div>
-
-    <a class="menu-btn" href="{{ path('app_main') }}">Main Menu</a>
 {% endblock %}

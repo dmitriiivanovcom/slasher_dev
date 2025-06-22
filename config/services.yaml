@@ -27,3 +27,7 @@ services:
     App\Command\ImportCharactersCommand:
         arguments:
             $projectDir: '%kernel.project_dir%'
+
+    App\Command\ImportMonstersCommand:
+        arguments:
+            $projectDir: '%kernel.project_dir%'

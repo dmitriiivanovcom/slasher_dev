@@ -68,7 +68,7 @@ final class MonsterController extends AbstractController
             return $this->redirectToRoute('app_monster_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('monster/edit.html.twig', [
+        return $this->render('monster/new.html.twig', [
             'monster' => $monster,
             'form' => $form,
         ]);

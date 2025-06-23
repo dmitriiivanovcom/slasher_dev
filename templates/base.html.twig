@@ -49,11 +49,20 @@
                         <a class="menu-link sub-nav-link" href="{{ path('app_monster_new') }}">+ Create New</a>
                     </div>
                     <div class="nav-group">
-                        <a class="menu-link main-nav-link" href="{{ path('app_weapon_index') }}">Weapons</a>
-                        <a class="menu-link sub-nav-link" href="{{ path('app_weapon_new') }}">+ Create New</a>
+                        <a href="{{ path('app_weapon_index') }}" class="menu-link main-nav-link">Weapons</a>
+                        <a href="{{ path('app_weapon_new') }}" class="menu-link sub-nav-link">+ Create New</a>
                     </div>
                     <div class="nav-group">
                         <a class="menu-link main-nav-link" href="#" style="color: #6c757d; cursor: not-allowed;">Locations</a>
+                    </div>
+                    <div class="nav-group" style="margin-top: auto; padding-top: 2rem;">
+                        {% if app.user %}
+                            <span class="menu-link sub-nav-link" style="color: #666;">Logged in as {{ app.user.userIdentifier }}</span>
+                            <a href="{{ path('app_logout') }}" class="menu-link main-nav-link">Logout</a>
+                        {% else %}
+                            <a href="{{ path('app_register') }}" class="menu-link main-nav-link">Register</a>
+                            <a href="{{ path('app_login') }}" class="menu-link main-nav-link">Login</a>
+                        {% endif %}
                     </div>
                 </nav>
             </div>

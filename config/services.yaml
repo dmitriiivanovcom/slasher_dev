@@ -32,6 +32,9 @@ services:
         arguments:
             $projectDir: '%kernel.project_dir%'
 
+    Symfony\Component\Routing\Generator\UrlGeneratorInterface:
+        alias: 'router.default'
+
     App\Command\ImportWeaponsCommand:
         arguments:
             $projectDir: '%kernel.project_dir%'

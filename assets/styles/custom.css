@@ -253,6 +253,8 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
 
 .form-container input[type="text"],
 .form-container input[type="number"],
+.form-container input[type="email"],
+.form-container input[type="password"],
 .form-container textarea {
     width: 100%;
     padding: 10px;
@@ -282,9 +284,34 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
 }
 
 .form-container button:hover {
-    background-color: #bb9334;
-    color: #000;
-    box-shadow: 0 0 10px #bb9334;
+    background-color: #d64949;
+    border-color: #c93e3e;
+}
+
+/* Стили для чекбокса */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Расстояние между чекбоксом и меткой */
+    padding-left: 0; /* Убираем отступ по умолчанию */
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 0; /* Убираем отступ по умолчанию */
+    flex-shrink: 0; /* Запрещаем сжиматься */
+}
+
+.form-check-label {
+    margin-bottom: 0; /* Убираем отступ по умолчанию */
+    font-family: 'Arial', sans-serif; /* Используем более читаемый шрифт */
+    font-size: 1rem;
+    color: #b0a6a6;
+}
+
+.btn-save {
+    border: none !important;
 }
 
 /* New styles for star rating input */
@@ -392,7 +419,7 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
 
 /* Side Navigation Panel */
 .side-nav {
-    height: 100vh;
+    height: 90vh;
     width: 280px;
     background: #0a0a0a;
     border-right: 2px solid #b30000;

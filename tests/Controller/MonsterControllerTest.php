@@ -18,8 +18,25 @@ final class MonsterControllerTest extends WebTestCase
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->manager = static::getContainer()->get('doctrine')->getManager();
-        $this->monsterRepository = $this->manager->getRepository(Monster::class);
+        $container = static::getContainer();
+        $em = $container->get('doctrine')->getManager();
+        $hasher = $container->get(\Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface::class);
+
+        // Очищаем пользователей
+        $em->createQuery('DELETE FROM App\\Entity\\User')->execute();
+
+        // Создаём пользователя-админа
+        $user = new \App\Entity\User();
+        $user->setEmail('admin@test.local');
+        $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+        $user->setPassword($hasher->hashPassword($user, 'adminpass'));
+        $em->persist($user);
+        $em->flush();
+
+        $this->client->loginUser($user);
+
+        $this->manager = $container->get('doctrine')->getManager();
+        $this->monsterRepository = $this->manager->getRepository(\App\Entity\Monster::class);
 
         foreach ($this->monsterRepository->findAll() as $object) {
             $this->manager->remove($object);
@@ -34,7 +51,7 @@ final class MonsterControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $this->path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Monster index');
+        self::assertPageTitleContains('All Monsters');
 
         // Use the $crawler to perform additional assertions e.g.
         // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
@@ -42,144 +59,121 @@ final class MonsterControllerTest extends WebTestCase
 
     public function testNew(): void
     {
-        $this->markTestIncomplete();
-        $this->client->request('GET', sprintf('%snew', $this->path));
+        $crawler = $this->client->request('GET', $this->path . 'new');
+        self::assertResponseIsSuccessful();
 
-        self::assertResponseStatusCodeSame(200);
-
-        $this->client->submitForm('Save', [
-            'monster[portrait]' => 'Testing',
-            'monster[backgroundImage]' => 'Testing',
-            'monster[title]' => 'Testing',
-            'monster[description]' => 'Testing',
-            'monster[strengths]' => 'Testing',
-            'monster[weaknesses]' => 'Testing',
-            'monster[lethality]' => 'Testing',
-            'monster[speed]' => 'Testing',
-            'monster[stealth]' => 'Testing',
-            'monster[name]' => 'Testing',
-            'monster[rank]' => 'Testing',
-            'monster[dangerIndex]' => 'Testing',
-            'monster[backstory]' => 'Testing',
+        $this->client->submitForm('Create', [
+            'monster_form[title]' => 'Test Monster',
+            'monster_form[description]' => 'Test description',
+            'monster_form[strengths]' => 'Strong',
+            'monster_form[weaknesses]' => 'Weak',
+            'monster_form[lethality]' => 10,
+            'monster_form[speed]' => 5,
+            'monster_form[stealth]' => 7,
+            'monster_form[name]' => 'TestName',
+            'monster_form[rank]' => 'A',
+            'monster_form[dangerIndex]' => 3,
+            'monster_form[backstory]' => 'Backstory',
         ]);
 
-        self::assertResponseRedirects($this->path);
-
+        self::assertResponseRedirects('/monster');
+        $this->client->followRedirect();
+        self::assertStringContainsString('TestName', $this->client->getResponse()->getContent());
         self::assertSame(1, $this->monsterRepository->count([]));
     }
 
+
     public function testShow(): void
     {
-        $this->markTestIncomplete();
-        $fixture = new Monster();
-        $fixture->setPortrait('My Title');
-        $fixture->setBackgroundImage('My Title');
-        $fixture->setTitle('My Title');
-        $fixture->setDescription('My Title');
-        $fixture->setStrengths('My Title');
-        $fixture->setWeaknesses('My Title');
-        $fixture->setLethality('My Title');
-        $fixture->setSpeed('My Title');
-        $fixture->setStealth('My Title');
-        $fixture->setName('My Title');
-        $fixture->setRank('My Title');
-        $fixture->setDangerIndex('My Title');
-        $fixture->setBackstory('My Title');
-
-        $this->manager->persist($fixture);
+        $monster = new \App\Entity\Monster();
+        $monster->setPortrait('portrait.png');
+        $monster->setBackgroundImage('bg.png');
+        $monster->setTitle('Show Monster');
+        $monster->setDescription('Show description');
+        $monster->setStrengths('Strong');
+        $monster->setWeaknesses('Weak');
+        $monster->setLethality(8);
+        $monster->setSpeed(6);
+        $monster->setStealth(4);
+        $monster->setName('ShowName');
+        $monster->setRank('B');
+        $monster->setDangerIndex(2);
+        $monster->setBackstory('Show backstory');
+        $this->manager->persist($monster);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
-
-        self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Monster');
-
-        // Use assertions to check that the properties are properly displayed.
+        $this->client->request('GET', $this->path . $monster->getId());
+        self::assertResponseIsSuccessful();
+        self::assertStringContainsString('Show Monster', $this->client->getResponse()->getContent());
+        self::assertStringContainsString('Show description', $this->client->getResponse()->getContent());
     }
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
-        $fixture = new Monster();
-        $fixture->setPortrait('Value');
-        $fixture->setBackgroundImage('Value');
-        $fixture->setTitle('Value');
-        $fixture->setDescription('Value');
-        $fixture->setStrengths('Value');
-        $fixture->setWeaknesses('Value');
-        $fixture->setLethality('Value');
-        $fixture->setSpeed('Value');
-        $fixture->setStealth('Value');
-        $fixture->setName('Value');
-        $fixture->setRank('Value');
-        $fixture->setDangerIndex('Value');
-        $fixture->setBackstory('Value');
-
-        $this->manager->persist($fixture);
+        $monster = new \App\Entity\Monster();
+        $monster->setPortrait('portrait.png');
+        $monster->setBackgroundImage('bg.png');
+        $monster->setTitle('Edit Monster');
+        $monster->setDescription('Edit description');
+        $monster->setStrengths('Strong');
+        $monster->setWeaknesses('Weak');
+        $monster->setLethality(5);
+        $monster->setSpeed(5);
+        $monster->setStealth(5);
+        $monster->setName('EditName');
+        $monster->setRank('C');
+        $monster->setDangerIndex(1);
+        $monster->setBackstory('Edit backstory');
+        $this->manager->persist($monster);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
-
+        $this->client->request('GET', $this->path . $monster->getId() . '/edit');
         $this->client->submitForm('Update', [
-            'monster[portrait]' => 'Something New',
-            'monster[backgroundImage]' => 'Something New',
-            'monster[title]' => 'Something New',
-            'monster[description]' => 'Something New',
-            'monster[strengths]' => 'Something New',
-            'monster[weaknesses]' => 'Something New',
-            'monster[lethality]' => 'Something New',
-            'monster[speed]' => 'Something New',
-            'monster[stealth]' => 'Something New',
-            'monster[name]' => 'Something New',
-            'monster[rank]' => 'Something New',
-            'monster[dangerIndex]' => 'Something New',
-            'monster[backstory]' => 'Something New',
+            'monster_form[title]' => 'Edited Monster',
+            'monster_form[description]' => 'Edited description',
+            'monster_form[strengths]' => 'Very strong',
+            'monster_form[weaknesses]' => 'Very weak',
+            'monster_form[lethality]' => 9,
+            'monster_form[speed]' => 2,
+            'monster_form[stealth]' => 1,
+            'monster_form[name]' => 'EditedName',
+            'monster_form[rank]' => 'S',
+            'monster_form[dangerIndex]' => 99,
+            'monster_form[backstory]' => 'Edited backstory',
         ]);
+        
+        self::assertResponseRedirects('/monster');
+        $this->client->followRedirect();
 
-        self::assertResponseRedirects('/monster/');
-
-        $fixture = $this->monsterRepository->findAll();
-
-        self::assertSame('Something New', $fixture[0]->getPortrait());
-        self::assertSame('Something New', $fixture[0]->getBackgroundImage());
-        self::assertSame('Something New', $fixture[0]->getTitle());
-        self::assertSame('Something New', $fixture[0]->getDescription());
-        self::assertSame('Something New', $fixture[0]->getStrengths());
-        self::assertSame('Something New', $fixture[0]->getWeaknesses());
-        self::assertSame('Something New', $fixture[0]->getLethality());
-        self::assertSame('Something New', $fixture[0]->getSpeed());
-        self::assertSame('Something New', $fixture[0]->getStealth());
-        self::assertSame('Something New', $fixture[0]->getName());
-        self::assertSame('Something New', $fixture[0]->getRank());
-        self::assertSame('Something New', $fixture[0]->getDangerIndex());
-        self::assertSame('Something New', $fixture[0]->getBackstory());
+        $updated = $this->monsterRepository->find($monster->getId());
+        self::assertSame('Edited Monster', $updated->getTitle());
+        self::assertSame('Edited description', $updated->getDescription());
     }
+
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
-        $fixture = new Monster();
-        $fixture->setPortrait('Value');
-        $fixture->setBackgroundImage('Value');
-        $fixture->setTitle('Value');
-        $fixture->setDescription('Value');
-        $fixture->setStrengths('Value');
-        $fixture->setWeaknesses('Value');
-        $fixture->setLethality('Value');
-        $fixture->setSpeed('Value');
-        $fixture->setStealth('Value');
-        $fixture->setName('Value');
-        $fixture->setRank('Value');
-        $fixture->setDangerIndex('Value');
-        $fixture->setBackstory('Value');
-
-        $this->manager->persist($fixture);
+        $monster = new \App\Entity\Monster();
+        $monster->setPortrait('portrait.png');
+        $monster->setBackgroundImage('bg.png');
+        $monster->setTitle('Delete Monster');
+        $monster->setDescription('Delete description');
+        $monster->setStrengths('Strong');
+        $monster->setWeaknesses('Weak');
+        $monster->setLethality(3);
+        $monster->setSpeed(2);
+        $monster->setStealth(1);
+        $monster->setName('DeleteName');
+        $monster->setRank('D');
+        $monster->setDangerIndex(1);
+        $monster->setBackstory('Delete backstory');
+        $this->manager->persist($monster);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+        $this->client->request('GET', $this->path . $monster->getId());
         $this->client->submitForm('Delete');
-
-        self::assertResponseRedirects('/monster/');
+        self::assertResponseRedirects('/monster');
+        $this->client->followRedirect();
         self::assertSame(0, $this->monsterRepository->count([]));
     }
 }

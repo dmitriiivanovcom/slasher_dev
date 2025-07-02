@@ -53,7 +53,8 @@
                         <a href="{{ path('app_weapon_new') }}" class="menu-link sub-nav-link">+ Create New</a>
                     </div>
                     <div class="nav-group">
-                        <a class="menu-link main-nav-link" href="#" style="color: #6c757d; cursor: not-allowed;">Locations</a>
+                        <a class="menu-link main-nav-link" href="{{ path('app_location_index') }}">Locations</a>
+                        <a class="menu-link sub-nav-link" href="{{ path('app_location_new') }}">+ Create New</a>
                     </div>
                     <div class="nav-group" style="margin-top: auto; padding-top: 2rem;">
                         {% if app.user %}

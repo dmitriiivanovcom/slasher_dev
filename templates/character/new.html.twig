@@ -8,10 +8,14 @@
             {{ character.id ? 'Edit Character' : 'Create New Character' }}
         </h1>
 
-        {{ include('character/_form.html.twig', {'button_label': character.id ? 'Update' : 'Create'}) }}
+        {{ form_start(form) }}
+            {{ include('character/_form.html.twig', {'button_label': character.id ? 'Update' : 'Create'}) }}
+            <div style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+                <a href="{{ path('app_character_index') }}" class="menu-link">Back to list</a>
+            </div>
+        {{ form_end(form) }}
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
-            <a href="{{ path('app_character_index') }}" class="menu-link">Back to list</a>
             
             {% if character.id %}
                 {{ include('character/_delete_form.html.twig') }}

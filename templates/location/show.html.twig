@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ location.name }}{% endblock %}
+
+{% block body %}
+    <div class="show-container">
+        <h1 class="all-characters-title" style="margin-top: 20px;">{{ location.name }}</h1>
+        <img src="{{ asset(location.image) }}" alt="{{ location.name }}" style="max-width: 300px; max-height: 300px; object-fit: cover; border-radius: 12px; margin-bottom: 1em;">
+        <div style="margin-bottom: 1em;">{{ location.description }}</div>
+        {% if location.map %}
+            <div>
+                <h3>Map</h3>
+                <img src="{{ asset(location.map) }}" alt="Map of {{ location.name }}" style="max-width: 400px; max-height: 400px; object-fit: contain; border-radius: 8px;">
+            </div>
+        {% endif %}
+    </div>
+{% endblock %} 

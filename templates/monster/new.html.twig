@@ -8,10 +8,14 @@
             {{ monster.id ? 'Edit ' ~ monster.name : 'Create New Monster' }}
         </h1>
 
-        {{ include('monster/_form.html.twig', {'button_label': monster.id ? 'Update' : 'Create'}) }}
+        {{ form_start(form) }}
+            {{ include('monster/_form.html.twig', {'button_label': monster.id ? 'Update' : 'Create'}) }}
+            <div style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+                <a href="{{ path('app_monster_index') }}" class="menu-link">Back to list</a>
+            </div>
+        {{ form_end(form) }}
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
-            <a href="{{ path('app_monster_index') }}" class="menu-link">Back to list</a>
             
             {% if monster.id %}
                 {{ include('monster/_delete_form.html.twig') }}

@@ -272,7 +272,7 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
     font-family: 'SwampyDirt', Arial, sans-serif;
 }
 
-.form-container button {
+/* .form-container button {
     font-family: 'Nosifer', cursive;
     color: #bb9334;
     background: none;
@@ -286,7 +286,7 @@ body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-
 .form-container button:hover {
     background-color: #d64949;
     border-color: #c93e3e;
-}
+} */
 
 /* Стили для чекбокса */
 .form-check {

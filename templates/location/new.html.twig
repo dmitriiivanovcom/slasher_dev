@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Location{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        <h1 class="page-title">Create New Location</h1>
+
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.image) }}
+            {{ form_row(form.map) }}
+            <div style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+                <button type="submit" class="menu-link">Create</button>
+                <a href="{{ path('app_location_index') }}" class="menu-link">Back to list</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %} 

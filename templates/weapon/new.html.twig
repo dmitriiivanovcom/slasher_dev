@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Новое оружие{% endblock %}
+{% block title %}New Weapon{% endblock %}
 
 {% block body %}
     <div class="form-container">
-        <h1 class="page-title">Создать новое оружие</h1>
+        <h1 class="page-title">Create New Weapon</h1>
 
-    {{ include('weapon/_form.html.twig') }}
-
-        <a class="back-link" href="{{ path('app_weapon_index') }}">Вернуться к списку</a>
+        {{ form_start(form) }}
+            {{ include('weapon/_form.html.twig', {'button_label': 'Create'}) }}
+            <div style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+                <a href="{{ path('app_weapon_index') }}" class="menu-link">Back to list</a>
+            </div>
+        {{ form_end(form) }}
     </div>
 {% endblock %}

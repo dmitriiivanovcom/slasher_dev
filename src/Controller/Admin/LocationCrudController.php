@@ -15,14 +15,12 @@ class LocationCrudController extends AbstractCrudController
         return Location::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        yield IdField::new('id')->hideOnForm();
+        yield TextField::new('name', 'Название');
+        yield TextEditorField::new('description', 'Описание');
+        yield TextField::new('image', 'Картинка');
+        yield TextField::new('map', 'Карта')->hideOnIndex();
     }
-    */
 }

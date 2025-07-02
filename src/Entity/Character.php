@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 class Character
@@ -51,6 +52,9 @@ class Character
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
@@ -197,6 +201,17 @@ class Character
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
         return $this;
     }
 }

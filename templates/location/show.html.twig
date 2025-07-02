@@ -3,15 +3,42 @@
 {% block title %}{{ location.name }}{% endblock %}
 
 {% block body %}
-    <div class="show-container">
-        <h1 class="all-characters-title" style="margin-top: 20px;">{{ location.name }}</h1>
-        <img src="{{ asset(location.image) }}" alt="{{ location.name }}" style="max-width: 300px; max-height: 300px; object-fit: cover; border-radius: 12px; margin-bottom: 1em;">
-        <div style="margin-bottom: 1em;">{{ location.description }}</div>
-        {% if location.map %}
-            <div>
-                <h3>Map</h3>
-                <img src="{{ asset(location.map) }}" alt="Map of {{ location.name }}" style="max-width: 400px; max-height: 400px; object-fit: contain; border-radius: 8px;">
-            </div>
-        {% endif %}
+<div class="show-page-wrapper">
+    <div class="card" style="background-image: url('{{ location.image ? asset('uploads/locations/' ~ location.image) : asset('img/default_bg.jpg') }}');">
+        <div class="corner-block top-left">
+            <div class="name slasher-heading">{{ location.name }}</div>
+        </div>
+        <div class="corner-block bottom-left">
+            {% if location.description %}<p style="font-size: 14px;"><strong>Описание:</strong> {{ location.description }}</p>{% endif %}
+            {% if location.map %}
+                <button type="button" class="menu-link" id="show-map-btn" style="margin-top: 1em;">Map</button>
+                <div id="map-popup" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.95); align-items:center; justify-content:center; flex-direction:column;">
+                    <img src="{{ asset('uploads/locations/' ~ location.map) }}" alt="Map of {{ location.name }}" style="max-width:90vw; max-height:80vh; object-fit:contain; border-radius:12px; margin-bottom:2rem;">
+                    <button type="button" class="menu-link" id="close-map-btn" style="margin-bottom:2rem;">Close</button>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const showBtn = document.getElementById('show-map-btn');
+                        const popup = document.getElementById('map-popup');
+                        const closeBtn = document.getElementById('close-map-btn');
+                        showBtn.addEventListener('click', function() {
+                            popup.style.display = 'flex';
+                        });
+                        closeBtn.addEventListener('click', function() {
+                            popup.style.display = 'none';
+                        });
+                        document.addEventListener('keydown', function(e) {
+                            if (e.key === 'Escape') popup.style.display = 'none';
+                        });
+                    });
+                </script>
+            {% endif %}
+        </div>
     </div>
+    <div class="action-buttons-container">
+        <a class="menu-link" href="{{ path('app_location_index') }}">Back to list</a>
+        <a class="menu-link" href="{{ path('app_location_edit', {'id': location.id}) }}">Edit</a>
+        {{ include('location/_delete_form.html.twig', { location: location }) }}
+    </div>
+</div>
 {% endblock %} 

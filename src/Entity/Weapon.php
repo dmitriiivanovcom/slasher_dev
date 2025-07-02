@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\WeaponRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: WeaponRepository::class)]
 class Weapon
@@ -37,6 +38,9 @@ class Weapon
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $range = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
@@ -136,6 +140,17 @@ class Weapon
     {
         $this->range = $range;
 
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
         return $this;
     }
 }

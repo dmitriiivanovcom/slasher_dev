@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Location{% endblock %}
+{% block title %}Edit Location{% endblock %}
 
 {% block body %}
     <div class="form-container">
-        <h1 class="page-title">Create New Location</h1>
+        <h1 class="page-title">Edit Location</h1>
 
         {{ form_start(form) }}
             {{ form_errors(form) }}
@@ -12,7 +12,6 @@
             {{ form_row(form.description) }}
             {{ form_row(form.image) }}
             {{ form_row(form.map) }}
-
             <label>Подлокации</label>
             {{ form_errors(form.subLocations) }}
             <div id="sublocations-collection"
@@ -24,14 +23,12 @@
                 {% endfor %}
             </div>
             <button type="button" class="menu-link" id="add-sublocation-btn">Добавить подлокацию</button>
-
             <div style="display: flex; gap: 1.5rem; margin-top: 2rem;">
-                <button type="submit" class="menu-link">Create</button>
+                <button type="submit" class="menu-link">Save</button>
             </div>
             <a href="{{ path('app_location_index') }}" class="menu-link">Back to list</a>
         {{ form_end(form) }}
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let collectionHolder = document.getElementById('sublocations-collection');

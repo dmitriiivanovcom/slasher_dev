@@ -6,6 +6,8 @@
 parameters:
     characters_images_directory: '%kernel.project_dir%/public/uploads/characters'
     monsters_images_directory: '%kernel.project_dir%/public/uploads/monsters'
+    weapons_images_directory: '%kernel.project_dir%/public/uploads/weapons'
+    locations_images_directory: '%kernel.project_dir%/public/uploads/locations'
 
 services:
     # default configuration for services in *this* file

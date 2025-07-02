@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MonsterRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: MonsterRepository::class)]
 class Monster
@@ -52,6 +53,9 @@ class Monster
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $backstory = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
@@ -211,6 +215,17 @@ class Monster
     {
         $this->backstory = $backstory;
 
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
         return $this;
     }
 }

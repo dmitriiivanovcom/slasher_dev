@@ -33,6 +33,7 @@ final class CharacterController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handleFileUploads($form, $character, $slugger);
+            $character->setAuthor($this->getUser());
             $entityManager->persist($character);
             $entityManager->flush();
             return $this->redirectToRoute('app_character_index', [], Response::HTTP_SEE_OTHER);

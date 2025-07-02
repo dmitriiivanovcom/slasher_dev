@@ -33,7 +33,7 @@ final class MonsterController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handleImageUpload($form, $monster, $slugger);
-
+            $monster->setAuthor($this->getUser());
             $entityManager->persist($monster);
             $entityManager->flush();
 

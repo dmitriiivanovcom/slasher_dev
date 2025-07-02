@@ -1,11 +1,28 @@
+{% macro render_star_rating_widget(field, label) %}
+    <div class="stars-input-wrapper">
+        {{ form_label(field, label, {'label_attr': {'class': 'slasher-heading'}}) }}
+        <div style="display: none;">
+            {{ form_widget(field) }}
+        </div>
+        <div class="stars-input" data-target-input="#{{ field.vars.id }}">
+            {% for i in 1..5 %}
+                <span class="star-input" data-value="{{ i }}"></span>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% import _self as macros %}
 {{ form_start(form) }}
     <div class="form-row">{{ form_row(form.name) }}</div>
     <div class="form-row">{{ form_row(form.title) }}</div>
     <div class="form-row">{{ form_row(form.rank) }}</div>
     <div class="form-row">{{ form_row(form.dangerIndex) }}</div>
-    <div class="form-row">{{ form_row(form.lethality) }}</div>
-    <div class="form-row">{{ form_row(form.speed) }}</div>
-    <div class="form-row">{{ form_row(form.stealth) }}</div>
+    <div class="stats-column">
+        {{ macros.render_star_rating_widget(form.lethality, 'Lethality') }}
+        {{ macros.render_star_rating_widget(form.speed, 'Speed') }}
+        {{ macros.render_star_rating_widget(form.stealth, 'Stealth') }}
+    </div>
     <div class="form-row">{{ form_row(form.description) }}</div>
     <div class="form-row">{{ form_row(form.strengths) }}</div>
     <div class="form-row">{{ form_row(form.weaknesses) }}</div>
@@ -15,3 +32,48 @@
 
     <button type="submit" class="menu-link">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const allStarInputs = document.querySelectorAll('.stars-input');
+
+    allStarInputs.forEach(starContainer => {
+        const stars = starContainer.querySelectorAll('.star-input');
+        const targetInput = document.querySelector(starContainer.dataset.targetInput);
+
+        const updateStars = (rating) => {
+            stars.forEach(star => {
+                const starValue = parseInt(star.dataset.value, 10);
+                if (starValue <= rating) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+        };
+
+        starContainer.addEventListener('mouseover', (e) => {
+            if (!e.target.matches('.star-input')) return;
+            const hoverValue = parseInt(e.target.dataset.value, 10);
+            stars.forEach((s, i) => {
+                s.classList.toggle('hover', i < hoverValue);
+            });
+        });
+
+        starContainer.addEventListener('mouseout', () => {
+            stars.forEach(s => s.classList.remove('hover'));
+        });
+
+        starContainer.addEventListener('click', (e) => {
+            if (!e.target.matches('.star-input')) return;
+            const rating = parseInt(e.target.dataset.value, 10);
+            targetInput.value = rating;
+            updateStars(rating);
+        });
+
+        if (targetInput && targetInput.value) {
+            updateStars(parseInt(targetInput.value, 10));
+        }
+    });
+});
+</script>

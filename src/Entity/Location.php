@@ -6,6 +6,7 @@ use App\Repository\LocationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location
@@ -30,8 +31,11 @@ class Location
     /**
      * @var Collection<int, SubLocations>
      */
-    #[ORM\OneToMany(targetEntity: SubLocations::class, mappedBy: 'location', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: SubLocations::class, mappedBy: 'location', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $subLocations;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $author = null;
 
     public function __construct()
     {
@@ -118,6 +122,17 @@ class Location
             }
         }
 
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
         return $this;
     }
 }

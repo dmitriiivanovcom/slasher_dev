@@ -12,7 +12,7 @@
             {{ form_row(form.description) }}
             {{ form_row(form.image) }}
             {{ form_row(form.map) }}
-            <label>Подлокации</label>
+            <label>Sublocations</label>
             {{ form_errors(form.subLocations) }}
             <div id="sublocations-collection"
                  data-prototype="{{ form_widget(form.subLocations.vars.prototype)|e('html_attr') }}">

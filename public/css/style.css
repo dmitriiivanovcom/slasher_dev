@@ -146,7 +146,7 @@ body {
 
 body, .card, .corner-block, .stars, .star, .motto, .corner-block *:not(.slasher-heading):not(.name):not(.header-nav a) {
   font-family: 'SwampyDirt', Arial, sans-serif;
-  color: #b0a6a6;
+  /* color: #b0a6a6; */
   text-shadow: 1px 1px 2px #222, 0 0 2px #a22b2b44;
 }
 

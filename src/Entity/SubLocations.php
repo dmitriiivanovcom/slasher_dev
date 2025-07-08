@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SubLocationsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SubLocationsRepository::class)]
 class SubLocations
@@ -11,15 +12,19 @@ class SubLocations
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['api'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['api'])]
     private ?string $name = null;
 
     #[ORM\Column(type: 'text')]
+    #[Groups(['api'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['api'])]
     private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'subLocations')]

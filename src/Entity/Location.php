@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location
@@ -14,24 +15,30 @@ class Location
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['api'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['api'])]
     private ?string $name = null;
 
     #[ORM\Column(type: 'text')]
+    #[Groups(['api'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['api'])]
     private ?string $image = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $map = null;
 
     /**
      * @var Collection<int, SubLocations>
      */
     #[ORM\OneToMany(targetEntity: SubLocations::class, mappedBy: 'location', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[Groups(['api'])]
     private Collection $subLocations;
 
     #[ORM\ManyToOne(targetEntity: User::class)]

@@ -79,9 +79,10 @@ class LocationController extends AbstractController
         ]);
     }
 
-    #[Route('/location/{id}', name: 'app_location_show')]
-    public function show(Location $location): Response
+    #[Route('/location/{id}', name: 'app_location_show', methods: ['GET'])]
+    public function show(Location $location, Request $request): Response
     {
+        error_log('SHOW: Route=' . $request->attributes->get('_route') . ' Controller=' . $request->attributes->get('_controller'));
         return $this->render('location/show.html.twig', [
             'location' => $location,
         ]);
@@ -146,7 +147,12 @@ class LocationController extends AbstractController
     #[Route('/location/{id}', name: 'app_location_delete', methods: ['POST'])]
     public function delete(Request $request, Location $location, \Doctrine\ORM\EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $location->getId(), $request->request->get('_token'))) {
+        error_log('DELETE: Route=' . $request->attributes->get('_route') . ' Controller=' . $request->attributes->get('_controller'));
+        $token = $request->request->get('_token');
+        $expected = 'delete' . $location->getId();
+        $isValid = $this->isCsrfTokenValid($expected, $token);
+        error_log('CSRF: expected key=' . $expected . ' token=' . $token . ' isValid=' . ($isValid ? 'YES' : 'NO'));
+        if ($isValid) {
             $em->remove($location); // subLocations удалятся автоматически
             $em->flush();
         }

@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class WeaponApiController extends AbstractController
 {
     #[Route('', name: 'api_weapons_list', methods: ['GET'])]
+    // #[IsGranted('ROLE_USER')]
     public function list(WeaponRepository $repo, SerializerInterface $serializer): JsonResponse
     {
         $weapons = $repo->findAll();
@@ -24,7 +25,7 @@ class WeaponApiController extends AbstractController
     }
 
     #[Route('', name: 'api_weapons_create', methods: ['POST'])]
-    #[IsGranted('ROLE_USER')]
+    // #[IsGranted('ROLE_USER')]
     public function create(Request $request, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -42,7 +43,7 @@ class WeaponApiController extends AbstractController
     }
 
     #[Route('/{id}', name: 'api_weapons_show', methods: ['GET'])]
-    #[IsGranted('ROLE_USER')]
+    // #[IsGranted('ROLE_USER')]
     public function show(Weapon $weapon, SerializerInterface $serializer): JsonResponse
     {
         $json = $serializer->serialize($weapon, 'json', ['groups' => 'api']);
@@ -50,7 +51,7 @@ class WeaponApiController extends AbstractController
     }
 
     #[Route('/{id}', name: 'api_weapons_update', methods: ['PUT'])]
-    #[IsGranted('ROLE_USER')]
+    // #[IsGranted('ROLE_USER')]
     public function update(Request $request, Weapon $weapon, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
         $user = $this->getUser();
@@ -69,7 +70,7 @@ class WeaponApiController extends AbstractController
     }
 
     #[Route('/{id}', name: 'api_weapons_delete', methods: ['DELETE'])]
-    #[IsGranted('ROLE_USER')]
+    // #[IsGranted('ROLE_USER')]
     public function delete(Weapon $weapon, EntityManagerInterface $em): JsonResponse
     {
         $user = $this->getUser();

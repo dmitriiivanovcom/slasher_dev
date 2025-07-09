@@ -6,6 +6,7 @@ use App\Repository\WeaponRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: WeaponRepository::class)]
 class Weapon
@@ -13,33 +14,47 @@ class Weapon
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['api'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['api'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['api'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $image = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $ammoStatus = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['api'])]
     private ?int $damage = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $range = null;
 
+    #[ORM\Column(nullable: true)]
+    #[Groups(['api'])]
+    private ?int $weight = null;
+
     #[ORM\ManyToOne(targetEntity: User::class)]
+    #[Groups(['api'])]
     private ?User $author = null;
 
     public function getId(): ?int
@@ -140,6 +155,17 @@ class Weapon
     {
         $this->range = $range;
 
+        return $this;
+    }
+
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?int $weight): static
+    {
+        $this->weight = $weight;
         return $this;
     }
 

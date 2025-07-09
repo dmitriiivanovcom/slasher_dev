@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 class Character
@@ -12,48 +13,63 @@ class Character
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['api'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['api'])]
     private ?string $name = null;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(['api'])]
     private ?int $strength = null;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(['api'])]
     private ?int $agility = null;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(['api'])]
     private ?int $intelligence = null;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(['api'])]
     private ?int $charisma = null;
 
     #[ORM\Column(type: 'string', length: 300, nullable: true)]
+    #[Groups(['api'])]
     private ?string $quote = null;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[Groups(['api'])]
     private ?string $role = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $portrait = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $backgroundImage = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $motto = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $weaknesses = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $strengths = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['api'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
+    #[Groups(['api'])]
     private ?User $author = null;
 
     public function getId(): ?int

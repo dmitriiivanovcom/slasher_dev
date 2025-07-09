@@ -6,10 +6,12 @@ use App\Repository\MonsterRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MonsterRepository::class)]
 class Monster
 {
+    #[Groups(['api'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -21,6 +23,7 @@ class Monster
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $backgroundImage = null;
 
+    #[Groups(['api'])]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
@@ -33,27 +36,35 @@ class Monster
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $weaknesses = null;
 
+    #[Groups(['api'])]
     #[ORM\Column]
     private ?int $lethality = null;
 
+    #[Groups(['api'])]
     #[ORM\Column]
     private ?int $speed = null;
 
+    #[Groups(['api'])]
     #[ORM\Column]
     private ?int $stealth = null;
 
+    #[Groups(['api'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups(['api'])]
     #[ORM\Column(length: 255)]
     private ?string $rank = null;
 
+    #[Groups(['api'])]
     #[ORM\Column]
     private ?int $dangerIndex = null;
 
+    #[Groups(['api'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $backstory = null;
 
+    #[Groups(['api'])]
     #[ORM\ManyToOne(targetEntity: User::class)]
     private ?User $author = null;
 
